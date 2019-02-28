@@ -17,5 +17,8 @@ start: up
 stop: docker-compose.yml
 	docker-compose stop
 
+composer-validate:
+	docker-compose run --rm php-cli bash -c "composer validate"
+
 test: docker-compose.yml phpunit.xml.dist
 	docker-compose run --rm php-cli bash -c "bin/phpunit -c phpunit.xml.dist"
