@@ -44,10 +44,7 @@ jobs:
   include:
 
     - stage: "Test"
-      env:
-        - PHP_IMG="base-7.2-mongoext-1.3.0"
-        - MONGO_IMG="mongo:3.4"
-        - SYMFONY="dev-master"
+      env: PHP_IMG="base-7.2-mongoext-1.3.0" MONGO_IMG="mongo:3.4" SYMFONY="dev-master"
       install:
         - docker-compose run --no-deps --rm php-cli composer config minimum-stability dev
         - docker-compose run --no-deps --rm php-cli composer install --prefer-dist --no-interaction ${COMPOSER_FLAGS}
@@ -60,10 +57,7 @@ jobs:
 
     - stage: "Analysis"
       name: "coverage"
-      env:
-        - PHP_IMG="base-7.1-mongoext-1.1.5"
-        - MONGO_IMG="mongo:3.0"
-        - SYMFONY="3.4.*"
+      env: PHP_IMG="base-7.1-mongoext-1.1.5" MONGO_IMG="mongo:3.0" SYMFONY="3.4.*"
       script:
         - docker-compose run --rm php-cli bash -c "sleep 3; bin/phpunit -c phpunit.xml.dist --coverage-clover=./build/coverage/coverage.clover"
       after_success:
