@@ -49,6 +49,11 @@ script:
 
 jobs:
   include:
+    - install:
+      - rm docker-compose.yml
+      - mv docker-compose.travis.yml docker-compose.yml
+      - sudo chmod -R 777 . # ugly! Travis is 2000:2000
+      - docker-compose run --no-deps --rm php-cli composer install --prefer-dist --no-interaction ${COMPOSER_FLAGS}
     - stage: "Analysis"
       name: "cs-check"
       script:
