@@ -50,12 +50,6 @@ jobs:
         - docker-compose run --no-deps --rm php-cli composer install --prefer-dist --no-interaction ${COMPOSER_FLAGS}
 
     - stage: "Analysis"
-      name: "cs-check"
-      script:
-        - docker-compose run --no-deps --rm php-cli composer cs-check src/
-        - docker-compose run --no-deps --rm php-cli composer cs-check tests/
-
-    - stage: "Analysis"
       name: "coverage"
       env: PHP_IMG="base-7.1-mongoext-1.1.5" MONGO_IMG="mongo:3.0" SYMFONY="3.4.*"
       script:
@@ -64,6 +58,17 @@ jobs:
         - wget https://scrutinizer-ci.com/ocular.phar --output-document="${HOME}/bin/ocular"
         - chmod +x "${HOME}/bin/ocular"
         - ocular code-coverage:upload --format=php-clover ./build/coverage/coverage.clover
+
+    - stage: "Analysis"
+      name: "phpstan"
+      script:
+        - docker-compose run --no-deps --rm php-cli bin/phpstan analyze -l7 src/ tests/
+
+    - stage: "Analysis"
+      name: "cs-check"
+      script:
+        - docker-compose run --no-deps --rm php-cli composer cs-check src/
+        - docker-compose run --no-deps --rm php-cli composer cs-check tests/
 
 notifications:
   on_success: change
