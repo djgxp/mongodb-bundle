@@ -23,7 +23,7 @@ final class Query
     /** @var array */
     private $filters;
 
-    /** @var array */
+    /** @var array|object*/
     private $data;
 
     /** @var array */
@@ -115,7 +115,7 @@ final class Query
     }
 
     /**
-     * @return array
+     * @return array|object
      */
     public function getData()
     {
@@ -125,9 +125,9 @@ final class Query
     /**
      * @param array|object $data
      */
-    public function setData($data)
+    public function setData($data): void
     {
-        $this->data = (array) ($data ?? []);
+        $this->data = $data ?? [];
     }
 
     /**
