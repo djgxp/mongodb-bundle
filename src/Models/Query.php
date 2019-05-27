@@ -20,7 +20,7 @@ final class Query
     /** @var string */
     private $collection;
 
-    /** @var array|object */
+    /** @var array */
     private $filters;
 
     /** @var array */
@@ -29,7 +29,7 @@ final class Query
     /** @var array */
     private $options;
 
-    /** @var int */
+    /** @var float */
     private $executionTime;
 
     /** @var string */
@@ -111,11 +111,11 @@ final class Query
      */
     public function setFilters($filters)
     {
-        $this->filters = (array) $filters ?? [];
+        $this->filters = (array) ($filters ?? []);
     }
 
     /**
-     * @return array|object
+     * @return array
      */
     public function getData()
     {
@@ -127,7 +127,7 @@ final class Query
      */
     public function setData($data)
     {
-        $this->data = $data ?? [];
+        $this->data = (array) ($data ?? []);
     }
 
     /**
@@ -154,9 +154,6 @@ final class Query
         return $this->executionTime;
     }
 
-    /**
-     * @param float $executionTime
-     */
     public function setExecutionTime(float $executionTime)
     {
         $this->executionTime = $executionTime;

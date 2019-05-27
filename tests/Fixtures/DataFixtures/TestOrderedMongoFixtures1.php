@@ -2,22 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Facile\MongoDbBundle\Tests\fixtures\DataFixtures;
+namespace Facile\MongoDbBundle\Tests\Fixtures\DataFixtures;
 
 use Facile\MongoDbBundle\Capsule\Database;
 use Facile\MongoDbBundle\Fixtures\AbstractContainerAwareFixture;
 use Facile\MongoDbBundle\Fixtures\MongoFixtureInterface;
+use Facile\MongoDbBundle\Fixtures\OrderedFixtureInterface;
 
-class TestFixtures extends AbstractContainerAwareFixture implements MongoFixtureInterface
+class TestOrderedMongoFixtures1 extends AbstractContainerAwareFixture implements MongoFixtureInterface, OrderedFixtureInterface
 {
-    /**
-     * @return array
-     */
     public function loadData()
     {
         $doc = [
             'type' => 'fixture',
-            'data' => 'test',
+            'data' => 'Alice in Wonderland - 2010',
+            'expectedPosition' => 2,
         ];
 
         /** @var Database $connection */
@@ -26,18 +25,17 @@ class TestFixtures extends AbstractContainerAwareFixture implements MongoFixture
         $collection->insertOne($doc);
     }
 
-    /**
-     * @return array
-     */
+    public function getOrder(): int
+    {
+        return 200;
+    }
+
     public function loadIndexes()
     {
     }
 
-    /**
-     * @return string
-     */
     public function collection(): string
     {
-        return 'testFixturesCollection';
+        return 'testFixturesOrderedCollection';
     }
 }

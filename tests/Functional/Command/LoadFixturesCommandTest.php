@@ -40,7 +40,7 @@ class LoadFixturesCommandTest extends AppTestCase
         $commandTester->execute(
             [
                 'command' => $command->getName(),
-                'addFixturesPath' => __DIR__ . '/../../fixtures/DataFixtures',
+                'addFixturesPath' => __DIR__ . '/../../Fixtures/DataFixtures',
             ]
         );
 
@@ -75,7 +75,7 @@ class LoadFixturesCommandTest extends AppTestCase
         $commandTester->execute(
             [
                 'command' => $command->getName(),
-                'addFixturesPath' => __DIR__ . '/../../fixtures/DataFixtures',
+                'addFixturesPath' => __DIR__ . '/../../Fixtures/DataFixtures',
             ]
         );
 

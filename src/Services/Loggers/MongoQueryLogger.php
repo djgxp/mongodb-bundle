@@ -6,9 +6,6 @@ namespace Facile\MongoDbBundle\Services\Loggers;
 
 use Facile\MongoDbBundle\Models\Query;
 
-/**
- * Class MongoQueryLogger
- */
 class MongoQueryLogger implements DataCollectorLoggerInterface
 {
     /** @var \SplQueue|Query[] */
