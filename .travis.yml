@@ -64,14 +64,24 @@ install:
     fi;
   - docker-compose run --no-deps --rm php-cli composer install --prefer-dist --no-interaction ${COMPOSER_FLAGS}
 
-script:
-  - docker-compose run --no-deps --rm php-cli composer validate
-  - |
-    if [[ "$TEST_COVERAGE" = "1" ]]; then
-      docker-compose run --rm php-cli bash -c "sleep 3; bin/phpunit -c phpunit.xml.dist --coverage-clover=./build/coverage/coverage.clover"
-    else
-      docker-compose run --rm php-cli bash -c "sleep 3; bin/phpunit -c phpunit.xml.dist"
-    fi
+jobs:
+  include:
+
+    - stage: "Test"
+      name: "php-unit"
+      script:
+        - docker-compose run --no-deps --rm php-cli composer validate
+        - |
+          if [[ "$TEST_COVERAGE" = "1" ]]; then
+            docker-compose run --rm php-cli bash -c "sleep 3; bin/phpunit -c phpunit.xml.dist --coverage-clover=./build/coverage/coverage.clover"
+          else
+            docker-compose run --rm php-cli bash -c "sleep 3; bin/phpunit -c phpunit.xml.dist"
+          fi
+
+    - stage: "Analysis"
+      name: "cs-check"
+      script:
+        - docker-compose run --no-deps --rm php-cli composer cs-check src/ tests/
 
 after_success:
   - |

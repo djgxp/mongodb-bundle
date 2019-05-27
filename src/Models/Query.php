@@ -1,31 +1,43 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Facile\MongoDbBundle\Models;
 
 /**
  * Class Query.
+ *
  * @internal
  */
 final class Query
 {
     /** @var float */
     private $start;
+
     /** @var string */
     private $method;
+
     /** @var string */
     private $collection;
+
     /** @var array|object */
     private $filters;
+
     /** @var array */
     private $data;
+
     /** @var array */
     private $options;
+
     /** @var int */
     private $executionTime;
+
     /** @var string */
     private $readPreference;
+
     /** @var string */
     private $client;
+
     /** @var string */
     private $database;
 
@@ -99,7 +111,7 @@ final class Query
      */
     public function setFilters($filters)
     {
-        $this->filters = (array)$filters ?? [];
+        $this->filters = (array) $filters ?? [];
     }
 
     /**
